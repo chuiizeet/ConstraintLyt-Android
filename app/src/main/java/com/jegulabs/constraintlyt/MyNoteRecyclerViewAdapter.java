@@ -4,24 +4,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.jegulabs.constraintlyt.NoteFragment.OnListFragmentInteractionListener;
-import com.jegulabs.constraintlyt.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<Note> mValues;
+    private final NotesInteractionListener mListener;
 
-    public MyNoteRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyNoteRecyclerViewAdapter(List<Note> items, NotesInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,16 +29,20 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.textViewTitle.setText(holder.mItem.getTitle());
+        holder.textViewContainer.setText(holder.mItem.getContainer());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        if(holder.mItem.getFav() == true) {
+            holder.ivFav.setImageResource(R.drawable.ic_star_black_24dp);
+        }
+
+        holder.ivFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.favNoteClick(holder.mItem);
                 }
             }
         });
@@ -58,20 +55,22 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView textViewTitle;
+        public final TextView textViewContainer;
+        public final ImageView ivFav;
+        public Note mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            textViewTitle = view.findViewById(R.id.textViewTitle);
+            textViewContainer = view.findViewById(R.id.textViewContainer);
+            ivFav = view.findViewById(R.id.imageViewFav);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + textViewTitle.getText() + "'";
         }
     }
 }
