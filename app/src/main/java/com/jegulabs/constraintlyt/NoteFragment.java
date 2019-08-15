@@ -1,15 +1,18 @@
 package com.jegulabs.constraintlyt;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.AndroidException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -66,6 +69,11 @@ public class NoteFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+
+            noteList = new ArrayList<>();
+            noteList.add(new Note("Mis clases","Faltar a clases como todo un champ", true, android.R.color.holo_blue_light));
+            noteList.add(new Note("Leer Manga","Full metal #17 bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla", false, android.R.color.holo_green_light));
+            noteList.add(new Note("Feels","Comer pastel", true, android.R.color.holo_orange_light));
 
             adapterNotes = new MyNoteRecyclerViewAdapter(noteList, mListener);
             recyclerView.setAdapter(adapterNotes);

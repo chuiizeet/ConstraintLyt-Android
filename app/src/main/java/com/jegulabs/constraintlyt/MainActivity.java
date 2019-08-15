@@ -16,9 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().hide();
-
-        btnLogin.findViewById(R.id.buttonLogin);
+        btnLogin = findViewById(R.id.btnLogin);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        getSupportActionBar().hide();
+
+
 
     }
 }

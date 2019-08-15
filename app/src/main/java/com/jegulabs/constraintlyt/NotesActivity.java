@@ -46,6 +46,6 @@ public class NotesActivity extends AppCompatActivity implements NotesInteraction
 
     @Override
     public void favNoteClick(Note note) {
-        
+
     }
 }
